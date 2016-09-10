@@ -5,12 +5,12 @@ from math import pi
 
 class Drivetrain(object):
 
-    wheel_center_distance = 106.9
-    wheel_diameter = 83
+    wheel_center_distance = 106.9 #in mm
+    wheel_diameter = 83 #in mm
     def __init__(self):
-        self.pub1 = rospy.Publisher("/motor_command/speed1",std_msgs.Float64, queue_size=2)
-        self.pub2 = rospy.Publisher("/motor_command/speed2", std_msgs.Float64, queue_size=2)
-        self.sub = rospy.Subscriber("follower_ros_cmd_vel", geometry_msgs.Twist, twistCallback)
+        self.pubL = rospy.Publisher("/motor_command_left/rpm",std_msgs.Float64, queue_size=2)
+        self.pubR = rospy.Publisher("/motor_command_right/rpm", std_msgs.Float64, queue_size=2)
+        self.sub = rospy.Subscriber("/turtlebot_follower/raw_cmd_vel", geometry_msgs.Twist, twistCallback)
 
     def twistCallback(self, data):
         fwd_speed = data.linear.x
@@ -21,8 +21,8 @@ class Drivetrain(object):
         left_rpm = left_motor / (pi * wheel_diameter)
         right_rpm = right_motor / (pi * wheel_diameter)
 
-        self.pub1.publish(left_rpm)
-        self.pub2.publish(right_rpm)
+        self.pubL.publish(left_rpm)
+        self.pubR.publish(right_rpm)
     
 if __name__ == '__main__':
     rospy.init_node('drivetrain')
