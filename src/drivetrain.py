@@ -10,7 +10,7 @@ class Drivetrain(object):
     def __init__(self):
         self.pubL = rospy.Publisher("/motor_command_left/rpm",std_msgs.Float64, queue_size=2)
         self.pubR = rospy.Publisher("/motor_command_right/rpm", std_msgs.Float64, queue_size=2)
-        self.sub = rospy.Subscriber("/turtlebot_follower/raw_cmd_vel", geometry_msgs.Twist, twistCallback)
+        self.sub = rospy.Subscriber("/follower_velocity_smoother/raw_cmd_vel", geometry_msgs.Twist, twistCallback)
 
     def twistCallback(self, data):
         fwd_speed = data.linear.x
