@@ -10,14 +10,14 @@ class Drivetrain(object):
     def __init__(self):
         self.pub1 = rospy.Publisher("/motor_command/speed1",std_msgs.Float64, queue_size=2)
         self.pub2 = rospy.Publisher("/motor_command/speed2", std_msgs.Float64, queue_size=2)
-        self.sub = rospy.Subscriber("cmd_vel", Twist, twistCallback)
+        self.sub = rospy.Subscriber("follower_ros_cmd_vel", geometry_msgs.Twist, twistCallback)
 
     def twistCallback(self, data):
         fwd_speed = data.linear.x
         turn_speed = data.angular.z
         left_motor = fwd_speed + turn_speed * wheel_center_distance
         right_motor = fwd_speed - turn_speed * wheel_center_distance
-        # apply formula for left and right motors
+        
         left_rpm = left_motor / (pi * wheel_diameter)
         right_rpm = right_motor / (pi * wheel_diameter)
 
