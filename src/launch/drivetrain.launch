@@ -1,0 +1,5 @@
+<launch>
+
+<node pkg="suitcase" type="drivetrain.py" name="drivetrain" output="screen"/>
+
+</launch>
