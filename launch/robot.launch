@@ -1,0 +1,6 @@
+<launch>
+<include file="$(find vesc_driver)/launch/vesc_right.launch"/>
+<include file="$(find vesc_driver)/launch/vesc_left.launch"/>
+<include file="$(find suitcase)/launch/drivetrain.launch"/>
+<include file="$(find turtlebot_follower)/launch/follower.launch"/>
+</launch>
